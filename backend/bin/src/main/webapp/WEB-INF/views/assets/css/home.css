@@ -1,0 +1,14 @@
+/* home.css */
+
+/* 배경 이미지 설정 */
+body {
+  background-image: url('../img/back2.png');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  color: #333; /* 텍스트 색상 설정 */
+}
+
+.user-info-mypage{
+  background-color:aliceblue
+}

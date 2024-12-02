@@ -1,0 +1,67 @@
+* {
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: #787878;
+}
+
+/* 상단 header 영역의 속성 설정 */
+header {
+  height: 70px;
+  /* 그림자 효과 */
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.3);
+}
+
+.ssafy-logo {
+  width: 120px;
+  height: 60px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  line-height: 70px;
+  margin: 0px 20px;
+}
+/* 중앙 main 영역 */
+.container {
+  margin: 30px 200px;
+  height: auto;
+  /* max-width: 1000px; */
+  min-height: 100%;
+  padding-bottom: 100px;
+}
+
+.user-rank {
+  display: flex;
+  justify-content: space-around;
+} 
+
+.best-position {
+  display: flex;
+  justify-content: space-around;
+}
+.text-center {
+  text-align: center;
+}
+
+.link {
+  color: #1e71ee;
+}
+
+.mx-3 {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+/* 하단 footer 영역 */
+
+footer {
+  text-align: center;
+  height: 100px;
+  line-height: 100px;
+  position: relative;
+}

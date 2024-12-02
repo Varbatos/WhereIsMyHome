@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.ssafy.apt.model.mapper.AptMapper">
+
+	<resultMap id="AptResultMap" type="AptDto">
+		<result column="apt_seq" property="apt_seq"/>
+		<result column="sgg_cd" property="sgg_cd"/>
+		<result column="umd_cd" property="umd_cd"/>
+		<result column="umd_nm" property="umd_nm"/>
+		<result column="jibun" property="jibun"/>
+		<result column="road_nm_sgg_cd" property="road_nm_sgg_cd"/>
+		<result column="road_nm" property="road_nm"/>
+		<result column="road_nm_bonbun" property="road_nm_bonbun"/>
+		<result column="road_nm_bubun" property="road_nm_bubun"/>
+		<result column="apt_nm" property="apt_nm"/>
+		<result column="build_year" property="build_year"/>
+		<result column="latitude" property="lat"/>
+		<result column="longitude" property="lng"/>
+		<result column="no" property="no"/>
+		<result column="apt_dong" property="apt_dong"/>
+		<result column="floor" property="floor"/>
+		<result column="deal_year" property="deal_year"/>
+		<result column="deal_month" property="deal_month"/>
+		<result column="deal_day" property="deal_day"/>
+		<result column="exclu_use_ar" property="exclu_use_ar"/>
+		<result column="deal_amount" property="deal_amount"/>
+		
+		
+	</resultMap>
+	
+	<!-- 코드별 목록 조회(관리자용) -->
+	<select id="searchByCode" parameterType="string" resultMap="AptResultMap">
+	    SELECT 
+	        hi.apt_seq, 
+	        hi.sgg_cd, 
+	        hi.umd_cd, 
+	        hi.umd_nm, 
+	        hi.jibun, 
+	        hi.road_nm_sgg_cd, 
+	        hi.road_nm, 
+	        hi.road_nm_bonbun, 
+	        hi.road_nm_bubun, 
+	        hi.apt_nm, 
+	        hi.build_year, 
+	        hi.latitude, 
+	        hi.longitude, 
+	        hd.no, 
+	        hd.floor, 
+	        hd.deal_year, 
+	        hd.deal_month, 
+	        hd.deal_day, 
+	        hd.exclu_use_ar, 
+	        hd.deal_amount
+	    FROM 
+	        housedeals hd
+	    INNER JOIN 
+	        houseinfos hi 
+	    ON 
+	        hd.apt_seq = hi.apt_seq
+	    WHERE 
+	        sgg_cd = LEFT(#{code}, 5)
+	        and hd.deal_year > 2022;
+	</select>
+	
+	<select id="searchByAptSeq" parameterType="string" resultMap = "AptResultMap">
+	SELECT 
+	        hi.apt_seq, 
+	        hi.sgg_cd, 
+	        hi.umd_cd, 
+	        hi.umd_nm, 
+	        hi.jibun, 
+	        hi.road_nm_sgg_cd, 
+	        hi.road_nm, 
+	        hi.road_nm_bonbun, 
+	        hi.road_nm_bubun, 
+	        hi.apt_nm, 
+	        hi.build_year, 
+	        hi.latitude, 
+	        hi.longitude, 
+	        hd.no, 
+	        hd.floor, 
+	        hd.deal_year, 
+	        hd.deal_month, 
+	        hd.deal_day, 
+	        hd.exclu_use_ar, 
+	        hd.deal_amount
+	    FROM 
+	        housedeals hd
+	    INNER JOIN 
+	        houseinfos hi 
+	    ON 
+	        hd.apt_seq = hi.apt_seq
+	    WHERE 
+	        hi.apt_seq = #{seq}
+	        and hd.deal_year > 2022
+	        ;
+	</select>
+	
+	<!-- 위경도별 목록 조회 -->
+    <select id="searchByLatAndLng" parameterType="map" resultMap="AptResultMap">
+    <![CDATA[
+        SELECT 
+            hi.apt_seq, 
+            hi.sgg_cd, 
+            hi.umd_cd, 
+            hi.umd_nm, 
+            hi.jibun, 
+            hi.road_nm_sgg_cd, 
+            hi.road_nm, 
+            hi.road_nm_bonbun, 
+            hi.road_nm_bubun, 
+            hi.apt_nm, 
+            hi.build_year, 
+            hi.latitude, 
+            hi.longitude, 
+            hd.no, 
+            hd.floor, 
+            hd.deal_year, 
+            hd.deal_month, 
+            hd.deal_day, 
+            hd.exclu_use_ar, 
+            hd.deal_amount
+        FROM 
+            housedeals hd
+        INNER JOIN 
+            houseinfos hi 
+        ON 
+            hd.apt_seq = hi.apt_seq
+        WHERE 
+            #{bottomLat} <= hi.latitude AND hi.latitude <= #{topLat}
+            AND #{leftLng} <= hi.longitude AND hi.longitude < #{rightLng}
+            and hd.deal_year > 2022;
+            ]]>
+    </select>
+	
+</mapper>
